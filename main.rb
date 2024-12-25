@@ -45,7 +45,7 @@ class Project
 end
 
 begin
-    regex = ENV['VERSION_REGEX']  || "/[v]\d.\d.\d/"
+    regex = ENV["VERSION_REGEX"]  || "/[v]\\d.\\d.\\d/"
     puts "Using regex: " + regex
     if ARGV.size == 0
         raise "No filenames passed as params."
