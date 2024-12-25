@@ -13,4 +13,7 @@ jobs:
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: '3.3'
-    - run: ruby main.rb
+    - run: |
+      ls
+      pwd
+      ruby main.rb
