@@ -43,7 +43,7 @@ begin
     filename = ENV["FILENAME"] || ""
 
     if filename.empty?
-        raise "No filename passed as params."
+        raise "No filename passed as env."
     end
 
     project = Project.new(filename, eval(regex))

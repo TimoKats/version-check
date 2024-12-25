@@ -14,5 +14,3 @@ jobs:
       with:
         ruby-version: '3.3'
     - run: ruby main.rb
-      env:
-        FILENAME: test.txt
