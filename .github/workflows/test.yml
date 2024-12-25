@@ -14,7 +14,6 @@ jobs:
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: '3.3'
-    - run: |
-      ls
-      pwd
-      ruby main.rb
+    - run: ruby main.rb
+      env:
+        FILENAME: test.txt

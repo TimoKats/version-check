@@ -21,4 +21,4 @@ runs:
     - run: ruby main.rb
       env:
         VERSION_REGEX: ${{ inputs.version-regex }}
-        FILENAME: ${{ inputs.filename}}
+        FILENAME: ${{ inputs.filename }}
