@@ -14,4 +14,4 @@ jobs:
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: '3.3'
-    - run: ruby main.rb
+    - run: ruby main.rb test.txt test1.txt
