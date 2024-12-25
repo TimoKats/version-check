@@ -4,9 +4,9 @@ class Project
 
     attr_reader :code_tags, :git_tags
 
-    def initialize(files, version_regex)
+    def initialize(filename, version_regex)
         # variables
-        @files = files
+        @filename = filename
         @version_regex = version_regex
         # upon init
         @code_tags = []
@@ -16,15 +16,9 @@ class Project
     end
 
     def read_versions()
-            for file in @files do
-                begin
-                    File.open(file, "r") do |f|
-                        f.each_line do |line|
-                            @code_tags += line.scan(@version_regex)
-                        end
-                    end
-                rescue Errno::ENOENT
-                    puts "File not found: #{file}"
+        File.open(@filename, "r") do |f|
+            f.each_line do |line|
+                @code_tags += line.scan(@version_regex)
             end
         end
     end
@@ -46,11 +40,13 @@ end
 
 begin
     regex = ENV["VERSION_REGEX"]  || "/[v]\\d.\\d.\\d/"
-    puts "Using regex: " + regex
-    if ARGV.size == 0
-        raise "No filenames passed as params."
+    filename = ENV["FILENAME"] || ""
+
+    if filename.empty?
+        raise "No filename passed as params."
     end
-    project = Project.new(ARGV, eval(regex))
+
+    project = Project.new(filename, eval(regex))
     if not project.version_updated
         raise "Version in code not updated."
     end

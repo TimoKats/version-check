@@ -10,8 +10,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: '3.3'
-    - run: ruby main.rb test.txt test1.txt
+    - run: ruby main.rb
+      env:
+        FILENAME: test.txt
