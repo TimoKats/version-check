@@ -19,6 +19,7 @@ runs:
       with:
         ruby-version: '3.3'
     - run: ruby main.rb
+      shell: bash
       env:
         VERSION_REGEX: ${{ inputs.version-regex }}
         FILENAME: ${{ inputs.filename }}
