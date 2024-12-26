@@ -7,14 +7,15 @@ inputs:
   version-regex:
     description: "Ruby regex of the versions (e.g. /[v]\d.\d for v1.0)"
     required: false
-    default: "/[v]\\d.\\d.\\d/"
+    default: "/[v]\d.\d.\d/"
 
 branding:
-  icon: "alert-octagon"
+  icon: "package"
   color: "red"
 runs:
   using: "composite"
   steps:
+    - uses: actions/checkout@v4
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: '3.3'
