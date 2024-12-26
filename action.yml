@@ -14,12 +14,14 @@ branding:
 runs:
   using: "composite"
   steps:
-    - uses: actions/checkout@v4
-    - uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: '3.3'
-    - run: ruby main.rb
-      shell: bash
-      env:
-        VERSION_REGEX: ${{ inputs.version-regex }}
-        FILENAME: ${{ inputs.filename }}
+  - uses: actions/checkout@v4
+  - uses: ruby/setup-ruby@v1
+    with:
+      ruby-version: '3.3'
+  - run: |
+      ls -all
+      ruby main.rb
+    shell: bash
+    env:
+      VERSION_REGEX: ${{ inputs.version-regex }}
+      FILENAME: ${{ inputs.filename }}
