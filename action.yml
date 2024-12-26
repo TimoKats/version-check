@@ -1,0 +1,25 @@
+name: "version-checker"
+description: "Checks if you updated the version in your code."
+inputs:
+  filename:
+    description: "Filename that contains the version."
+    required: true
+  version-regex:
+    description: "Ruby regex of the versions (e.g. /[v]\d.\d for v1.0)"
+    required: false
+    default: "/[v]\d.\d.\d/"
+
+branding:
+  icon: "package"
+  color: "red"
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v4
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.3'
+    - run: ruby main.rb
+      env:
+        VERSION_REGEX: ${{ inputs.version-regex }}
+        FILENAME: ${{ inputs.filename }}
