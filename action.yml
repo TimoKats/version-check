@@ -25,4 +25,4 @@ runs:
     env:
       VERSION_REGEX: ${{ inputs.version-regex }}
       FILENAME: ${{ inputs.filename }}
-      TAGS_URL: ${{ github.server_url }}/${{ github.repository }}/tags"
+      TAGS_URL: ${{ github.server_url }}/${{ github.repository }}/tags
