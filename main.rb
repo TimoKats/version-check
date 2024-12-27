@@ -14,7 +14,7 @@ class Project
 
     def initialize(filename, version_regex, tags_url)
         # variables
-        @tags_url = tags_url.dup.sub! 'github.com', 'api.github.com'
+        @tags_url = tags_url.dup.sub! 'github.com', 'api.github.com/repos'
         @filename = filename
         @version_regex = version_regex
         # upon init
@@ -44,8 +44,6 @@ class Project
     def get_git_tags()
         uri = URI(@tags_url)
         res = Net::HTTP.get_response(uri)
-        puts @tags_url
-        puts @res.body
         for item in JSON.parse(res.body) do
             @git_tags << item["name"]
         end
