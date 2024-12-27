@@ -37,6 +37,7 @@ class Project
 
     def version_updated()
         for code_tag in @code_tags do
+            puts "Checking for:" + code_tag
             if not @git_tags.include? code_tag
                 return true
             end
