@@ -19,7 +19,7 @@ runs:
     with:
       ruby-version: '3.3'
   - run: |
-      ls -all
+      wget https://raw.githubusercontent.com/TimoKats/version-check/refs/heads/main/main.rb
       ruby main.rb
     shell: bash
     env:
