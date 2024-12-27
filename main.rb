@@ -33,12 +33,12 @@ class Project
 
     def get_tags()
         @git_tags = Dir.entries(".git/refs/tags/").select{ |i| i[@version_regex] }
-        puts "Found git tags:" + @git_tags
+        puts "Found git tags: " + @git_tags*","
     end
 
     def version_updated()
         for code_tag in @code_tags do
-            puts "Checking for:" + code_tag
+            puts "Checking for: " + code_tag
             if not @git_tags.include? code_tag
                 return true
             end
