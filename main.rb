@@ -44,6 +44,8 @@ class Project
     def get_git_tags()
         uri = URI(@tags_url)
         res = Net::HTTP.get_response(uri)
+        puts @tags_url
+        puts @res.body
         for item in JSON.parse(res.body) do
             @git_tags << item["name"]
         end
