@@ -47,7 +47,7 @@ class Project
 end
 
 begin
-    regex = ENV["VERSION_REGEX"]
+    regex = ENV["VERSION_REGEX"] || ""
     filename = ENV["FILENAME"] || ""
 
     if filename.empty?
