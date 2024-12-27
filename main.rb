@@ -16,10 +16,18 @@ class Project
     end
 
     def read_versions()
-        File.open(@filename, "r") do |f|
-            f.each_line do |line|
-                @code_tags += line.scan(@version_regex)
+        begin
+            File.open(@filename, "r") do |f|
+                f.each_line do |line|
+                    @code_tags += line.scan(@version_regex)
+                end
             end
+        rescue Errno::ENOENT => e
+            $stderr.puts "Error: #{e}"
+            exit -1
+        rescue TypeError => e
+            $stderr.puts "Error: #{e} (Probably invalid VERSION_REGEX)"
+            exit -1            
         end
     end
 
@@ -39,11 +47,15 @@ class Project
 end
 
 begin
-    regex = ENV["VERSION_REGEX"]  || "/[v]\\d.\\d.\\d/"
+    regex = ENV["VERSION_REGEX"]
     filename = ENV["FILENAME"] || ""
 
     if filename.empty?
         raise "No filename passed as env."
+    end
+
+    if regex.empty?
+        regex = "/[v]\\d.\\d.\\d/"
     end
 
     project = Project.new(filename, eval(regex))
