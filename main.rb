@@ -1,5 +1,9 @@
 #!/usr/bin/ruby
 
+require 'uri'
+require 'net/http'
+require 'json'
+
 class Project
 
     attr_reader :code_tags, :git_tags
@@ -11,11 +15,11 @@ class Project
         # upon init
         @code_tags = []
         @git_tags = []
-        read_versions
-        get_tags
+        get_code_tags
+        get_git_tags
     end
 
-    def read_versions()
+    def get_code_tags()
         begin
             File.open(@filename, "r") do |f|
                 f.each_line do |line|
@@ -29,16 +33,20 @@ class Project
             $stderr.puts "Error: #{e} (Probably invalid VERSION_REGEX)"
             exit -1            
         end
+        puts "Found the following tags in the code: " + @code_tags*","
     end
 
-    def get_tags()
-        @git_tags = Dir.entries(".git/refs/tags/").select{ |i| i[@version_regex] }
-        puts "Found git tags: " + @git_tags*","
+    def get_git_tags()
+        uri = URI("https://api.github.com/repos/TimoKats/pim/tags")
+        res = Net::HTTP.get_response(uri)
+        for item in JSON.parse(res.body) do
+            @git_tags << item["name"]
+        end
+        puts "Found the following tags in git: " + @git_tags*","
     end
 
     def version_updated()
         for code_tag in @code_tags do
-            puts "Checking for: " + code_tag
             if not @git_tags.include? code_tag
                 return true
             end
